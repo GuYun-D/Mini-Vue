@@ -45,38 +45,32 @@ function getDep(target, key) {
 }
 
 /**
- * proxy的优势p
+ * vue2的数据劫持
  */
 function reactive(raw) {
-  return new Proxy(raw, {
-    // target就是raw
-    get(target, key) {
-      const dep = getDep(target, key)
-      dep.depend()
-      return target[key]
-    },
+  Object.keys(raw).forEach(key => {
+    const dep = getDep(raw, key)
+    let value = raw[key]
 
-    set(target, key, newValue) {
-      const dep = getDep(target, key)
-      target[key] = newValue
-      dep.notify()
-    },
+    Object.defineProperty(raw, key, {
+      get() {
+        dep.depend()
+        return value
+      },
 
-    // has(){
-    //   // in操作符的捕获器
-    // },
-
-    // deleteProperty(){
-    //   // delete操作符的捕捉器
-    // }
+      set(newValue) {
+        if (value !== newValue) {
+          value = newValue
+          dep.notify()
+        }
+      }
+    })
   })
+
+  return raw
 }
-const proxy = reactive({ name: "张三" })
-console.log(proxy);
-proxy.name = "李四"
 
 
-// 测试代码
 const info = reactive({
   counter: 100,
   name: "哈哈哈"
@@ -94,5 +88,5 @@ watchEffect(function powerCounter() {
   console.log(info.counter + info.counter);
 })
 
-// info.counter++
+info.counter++
 info.name = "二狗子"
