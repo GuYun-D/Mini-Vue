@@ -1,0 +1,22 @@
+{
+  "name": "mini-vue",
+  "version": "1.0.0",
+  "description": "实现一个简易的vue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuYun-D/Mini-Vue.git"
+  },
+  "keywords": [
+    "vue3"
+  ],
+  "author": "GuYun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuYun-D/Mini-Vue/issues"
+  },
+  "homepage": "https://github.com/GuYun-D/Mini-Vue#readme"
+}
