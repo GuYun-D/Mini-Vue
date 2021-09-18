@@ -74,7 +74,7 @@ const patch = (n1, n2) => {
       if (newValue !== oldValue) {
         // 事件监听的判断
         if (key.startsWith("on")) {
-          el.addEventListener(key.slice(2).toLowerCase(), value)
+          el.addEventListener(key.slice(2).toLowerCase(), newValue)
         } else {
           // 属性添加
           el.setAttribute(key, newValue)
@@ -83,14 +83,14 @@ const patch = (n1, n2) => {
     }
     // 删除旧的props
     for (const key in oldProps) {
+      // 事件监听的判断
+      if (key.startsWith("on")) {
+        const value = oldProps[key]
+        el.removeEventListener(key.slice(2).toLowerCase(), value)
+      }
       if (!(key in newProps)) {
-        // 事件监听的判断
-        if (key.startsWith("on")) {
-          el.removeEventListener(key.slice(2).toLowerCase(), value)
-        } else {
-          // 属性添加
-          el.removeAttribute(key, newValue)
-        }
+        // 属性添加
+        el.removeAttribute(key, newValue)
       }
     }
 
