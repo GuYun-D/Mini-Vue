@@ -7,16 +7,21 @@
   <title>Document</title>
 </head>
 <body>
+
+  <div id="app"></div>
   <script src="./render.js"></script>
 
   <script>
     // 1.通过h函数创建一个vnode
     const vnode = h("div", {class: "yun"}, [
       h("h2", {}, "当前式h2"),
-      h("button", {}, "点我"),
+      h("button", {onclick: function() {console.log("你好啊");}}, "点我"),
     ])
 
     console.log(vnode);
+
+    // 2.通过mount函数，将vnode挂载到#app上
+    mount(vnode, document.querySelector("#app"))
   </script>
 </body>
 </html>
